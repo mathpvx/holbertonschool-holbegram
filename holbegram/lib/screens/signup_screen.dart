@@ -1,12 +1,141 @@
 import 'package:flutter/material.dart';
+import '../widgets/text_field.dart';
+import 'upload_image_screen.dart';
 
-class SignUp extends StatelessWidget {
-  const SignUp({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
+  bool _hidePassword = true;
+  bool _hideConfirmPassword = true;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _fullNameController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Sign Up Screen')),
+    const red = Color(0xFFE53935);
+
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                const Text(
+                  'Holbegram',
+                  style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                const Icon(Icons.spa, color: red, size: 34),
+                const SizedBox(height: 18),
+
+                const Text(
+                  'Sign up to see photos and videos\nfrom your friends.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black54),
+                ),
+                const SizedBox(height: 22),
+
+                TextFieldInput(
+                  textEditingController: _emailController,
+                  hintText: 'Email',
+                  textInputType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 14),
+
+                TextFieldInput(
+                  textEditingController: _fullNameController,
+                  hintText: 'Full Name',
+                  textInputType: TextInputType.text,
+                ),
+                const SizedBox(height: 14),
+
+                TextFieldInput(
+                  textEditingController: _passwordController,
+                  hintText: 'Password',
+                  textInputType: TextInputType.text,
+                  isPass: _hidePassword,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _hidePassword ? Icons.visibility_off : Icons.visibility,
+                      color: red,
+                    ),
+                    onPressed: () {
+                      setState(() => _hidePassword = !_hidePassword);
+                    },
+                  ),
+                ),
+                const SizedBox(height: 14),
+
+                TextFieldInput(
+                  textEditingController: _confirmPasswordController,
+                  hintText: 'Confirm Password',
+                  textInputType: TextInputType.text,
+                  isPass: _hideConfirmPassword,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _hideConfirmPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: red,
+                    ),
+                    onPressed: () {
+                      setState(
+                          () => _hideConfirmPassword = !_hideConfirmPassword);
+                    },
+                  ),
+                ),
+                const SizedBox(height: 18),
+
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (_) => const UploadImageScreen()),
+                        );
+                      },
+                    child: const Text(
+                      'Sign up',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 18),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
