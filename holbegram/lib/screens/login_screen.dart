@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import '../widgets/text_field.dart';
-import 'signup_screen.dart';
-import 'upload_image_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,160 +9,151 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool _passwordVisible = true;
 
-  bool _hidePassword = true;
+  @override
+  void initState() {
+    super.initState();
+    _passwordVisible = true;
+  }
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    const red = Color(0xFFE53935);
-
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              children: [
-                const SizedBox(height: 16),
-                const Text(
-                  'Holbegram',
-                  style: TextStyle(
-                    fontSize: 34,
-                    fontWeight: FontWeight.w600,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 28),
+            const Text(
+              'Holbegram',
+              style: TextStyle(
+                fontFamily: 'Billabong',
+                fontSize: 50,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Image.asset(
+              'assets/images/logo.webp',
+              width: 80,
+              height: 60,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  const SizedBox(height: 28),
+                  TextFieldInput(
+                    controller: emailController,
+                    ispassword: false,
+                    hintText: 'Email',
+                    keyboardType: TextInputType.emailAddress,
                   ),
-                ),
-                const SizedBox(height: 6),
-                const Icon(Icons.spa, color: red, size: 34),
-                const SizedBox(height: 28),
-
-                TextFieldInput(
-                  textEditingController: _emailController,
-                  hintText: 'Email',
-                  textInputType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 16),
-
-                TextFieldInput(
-                  textEditingController: _passwordController,
-                  hintText: 'Password',
-                  textInputType: TextInputType.text,
-                  isPass: _hidePassword,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _hidePassword ? Icons.visibility_off : Icons.visibility,
-                      color: red,
-                    ),
-                    onPressed: () {
-                      setState(() => _hidePassword = !_hidePassword);
-                    },
-                  ),
-                ),
-                const SizedBox(height: 18),
-
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: red,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
+                  const SizedBox(height: 24),
+                  TextFieldInput(
+                    controller: passwordController,
+                    ispassword: !_passwordVisible,
+                    hintText: 'Password',
+                    keyboardType: TextInputType.visiblePassword,
+                    suffixIcon: IconButton(
+                      alignment: Alignment.bottomLeft,
+                      icon: Icon(
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (_) => const UploadImageScreen()),
-                        );
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
                       },
-                    child: const Text(
-                      'Log in',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
-                ),
-                const SizedBox(height: 18),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Forgot your login details? ',
-                      style: TextStyle(color: Colors.black54),
-                    ),
-                    Text(
-                      'Get help logging in',
-                      style: TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 18),
-                const Divider(thickness: 1),
-                const SizedBox(height: 16),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Don't have an account ",
-                      style: TextStyle(color: Colors.black54),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => const SignupScreen(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Sign up',
-                        style: TextStyle(
-                          color: red,
-                          fontWeight: FontWeight.w700,
+                  const SizedBox(height: 28),
+                  SizedBox(
+                    height: 48,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(
+                          const Color.fromARGB(218, 226, 37, 24),
                         ),
                       ),
+                      onPressed: () {},
+                      child: const Text(
+                        'Log in',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                  ],
-                ),
-
-                const SizedBox(height: 18),
-
-                Row(
-                  children: const [
-                    Expanded(child: Divider(thickness: 1)),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: Text('OR', style: TextStyle(color: Colors.black54)),
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Forgot your login details? '),
+                      const Text(
+                        'Get help logging in',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Flexible(flex: 0, child: Container()),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  const Divider(thickness: 2),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Don't have an account"),
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            'Sign up',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(218, 226, 37, 24),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    Expanded(child: Divider(thickness: 1)),
-                  ],
-                ),
-
-                const SizedBox(height: 18),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.g_mobiledata, size: 34),
-                    SizedBox(width: 6),
-                    Text('Sign in with Google'),
-                  ],
-                ),
-
-                const SizedBox(height: 16),
-              ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const Flexible(child: Divider(thickness: 2)),
+                      const Text(' OR '),
+                      const Flexible(child: Divider(thickness: 2)),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.network(
+                        'https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-702702702702-702702.png',
+                        width: 40,
+                        height: 40,
+                      ),
+                      const Text('Sign in with Google'),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

@@ -59,24 +59,24 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 22),
 
                 TextFieldInput(
-                  textEditingController: _emailController,
+                  controller: _emailController,
                   hintText: 'Email',
-                  textInputType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 14),
 
                 TextFieldInput(
-                  textEditingController: _fullNameController,
+                  controller: _fullNameController,
                   hintText: 'Full Name',
-                  textInputType: TextInputType.text,
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 14),
 
                 TextFieldInput(
-                  textEditingController: _passwordController,
+                  controller: _passwordController,
                   hintText: 'Password',
-                  textInputType: TextInputType.text,
-                  isPass: _hidePassword,
+                  keyboardType: TextInputType.text,
+                  ispassword: _hidePassword,
                   suffixIcon: IconButton(
                     icon: Icon(
                       _hidePassword ? Icons.visibility_off : Icons.visibility,
@@ -90,10 +90,10 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 14),
 
                 TextFieldInput(
-                  textEditingController: _confirmPasswordController,
+                  controller: _confirmPasswordController,
                   hintText: 'Confirm Password',
-                  textInputType: TextInputType.text,
-                  isPass: _hideConfirmPassword,
+                  keyboardType: TextInputType.text,
+                  ispassword: _hideConfirmPassword,
                   suffixIcon: IconButton(
                     icon: Icon(
                       _hideConfirmPassword

@@ -1,37 +1,52 @@
 import 'package:flutter/material.dart';
 
 class TextFieldInput extends StatelessWidget {
-  final TextEditingController textEditingController;
-  final bool isPass;
+  final TextEditingController controller;
+  final bool ispassword;
   final String hintText;
-  final TextInputType textInputType;
   final Widget? suffixIcon;
+  final TextInputType keyboardType;
 
   const TextFieldInput({
     super.key,
-    required this.textEditingController,
+    required this.controller,
     required this.hintText,
-    required this.textInputType,
-    this.isPass = false,
+    required this.keyboardType,
     this.suffixIcon,
+    this.ispassword = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: textEditingController,
-      keyboardType: textInputType,
-      obscureText: isPass,
+      controller: controller,
+      keyboardType: keyboardType,
+      obscureText: ispassword,
+      textInputAction: TextInputAction.next,
+      cursorColor: const Color.fromARGB(218, 226, 37, 24),
       decoration: InputDecoration(
         hintText: hintText,
         filled: true,
-        fillColor: const Color(0xFFF2F2F2),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(6),
-        ),
+        contentPadding: const EdgeInsets.all(8),
         suffixIcon: suffixIcon,
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.transparent,
+            style: BorderStyle.none,
+          ),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.transparent,
+            style: BorderStyle.none,
+          ),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.transparent,
+            style: BorderStyle.none,
+          ),
+        ),
       ),
     );
   }
